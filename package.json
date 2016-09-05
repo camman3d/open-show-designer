@@ -1,0 +1,25 @@
+{
+  "name": "open-show-designer",
+  "version": "1.0.0",
+  "description": "Design and sequence data to be transmitted via E1.31 and OSC protocols",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camman3d/open-show-designer"
+  },
+  "keywords": [
+    "OSC",
+    "E131",
+    "DMX",
+    "Lighting"
+  ],
+  "author": "camman3d",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camman3d/open-show-designer/issues"
+  },
+  "homepage": "https://github.com/camman3d/open-show-designer"
+}
