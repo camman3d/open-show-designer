@@ -1,9 +1,10 @@
 {
   "name": "open-show-designer",
   "version": "1.0.0",
-  "description": "Design and sequence data to be transmitted via E1.31 and OSC protocols",
+  "description": "Design and sequence data to be transmitted via Art-Net and OSC protocols",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server --content-base src/view/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,9 +13,11 @@
   },
   "keywords": [
     "OSC",
-    "E131",
+    "Art-Net",
     "DMX",
-    "Lighting"
+    "Lighting",
+    "Sequencing",
+    "Lightshow"
   ],
   "author": "camman3d",
   "license": "ISC",
@@ -23,8 +26,26 @@
   },
   "homepage": "https://github.com/camman3d/open-show-designer",
   "dependencies": {
-    "e131": "^1.0.1",
+    "artnet": "^1.0.5",
+    "babel-polyfill": "^6.13.0",
+    "babel-runtime": "^6.11.6",
+    "koa": "^1.2.2",
     "node-osc": "^2.0.3",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "webpack": "^1.13.2",
     "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.25.0",
+    "node-sass": "^3.9.3",
+    "sass-loader": "^4.0.1",
+    "style-loader": "^0.13.1",
+    "webpack-dev-server": "^1.15.1"
   }
 }

@@ -37,6 +37,6 @@ module.exports = {
             if (c.type === 'osc') {
                 c.client.kill();
             }
-        })
+        });
     }
 };
