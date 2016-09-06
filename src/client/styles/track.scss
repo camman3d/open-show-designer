@@ -1,10 +1,14 @@
 .track {
   height: 150px;
   border: 1px solid $color-gray-dark;
+  border-left: none;
+  &:not(:last-child) {
+    border-bottom: none;
+  }
 }
 
 .track-controls {
-  width: 200px;
+  width: $control-width;
   height: 100%;
   border-right: 1px solid $color-gray-dark;
 }

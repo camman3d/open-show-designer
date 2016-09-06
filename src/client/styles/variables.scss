@@ -10,6 +10,10 @@ $color-gray-dark: #435058;
 $color-primary: #f02d3a;
 $color-primary-dark: #dd0426;
 
+$color-secondary: #f3de8a;
+
+$color-tertiary: #eb9486;
+
 $font-color: $color-gray-dark;
 
 // Shadows
@@ -20,3 +24,8 @@ $base-shadow-inset-light: inset 1px 1px 1px rgba(0,0,0,0.2);
 // Form
 
 $form-height: 25px;
+
+// Layout
+
+$control-width: 200px;
+$timeline-height: 50px;
