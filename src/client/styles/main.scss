@@ -1,6 +1,17 @@
-$background: lightblue;
+@import "variables";
+@import "base";
+
+*, :before, :after {
+  box-sizing: border-box;
+}
 
 body {
-  background: $background;
-  font-family: "Helvetica Neue", serif;
+  margin: 0;
+  padding: 0;
 }
+
+body, div, p, input, select {
+  color: $font-color;
+}
+
+@import "track";

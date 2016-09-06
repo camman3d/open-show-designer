@@ -1,0 +1,58 @@
+
+@mixin form-base($borderColor) {
+  border-radius: 3px;
+  border: 1px solid $borderColor;
+  padding: 4px;
+  height: $form-height;
+}
+
+input {
+  @include form-base($color-gray-dark);
+  box-shadow: $base-shadow-inset-light;
+}
+
+@mixin create-button($background, $border, $shadow, $font) {
+  @include form-base($border);
+  color: $font;
+  background: $background linear-gradient(lighten($background, 5%), darken($background, 5%));
+
+  &:active {
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+button, .btn {
+  @include create-button($color-white, $color-gray-dark, $color-gray-light, $font-color);
+
+  &.btn-primary {
+    @include create-button($color-primary, $color-primary-dark, $color-primary-dark, $color-white);
+  }
+}
+
+select {
+  @include form-base($color-gray-dark);
+  background: linear-gradient(lighten($color-white, 5%), darken($color-white, 5%));
+  width: 100%;
+}
+
+
+.toggle {
+  @include create-button($color-white, $color-gray-dark, $color-gray-light, $font-color);
+
+  //&:active {
+  //  box-shadow: inset 3px 3px 5px $color-primary-dark;
+  //  background: $color-primary;
+  //  border-color: $color-primary-dark;
+  //}
+
+  &.checked {
+    @include create-button($color-primary, $color-primary-dark, $color-primary-dark, $color-white);
+    //box-shadow: inset 2px 2px 2px $color-primary-dark;
+    //&:active {
+    //  box-shadow: inset 3px 3px 5px $color-primary-dark;
+    //}
+  }
+}
