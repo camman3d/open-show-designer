@@ -17,6 +17,10 @@
     margin-left: -7.5px;
     margin-top: -7.5px;
     background: linear-gradient(lighten($color-primary, 5%), darken($color-primary, 5%));
+
+    &.active {
+      border: 3px solid $color-gray-dark;
+    }
   }
   svg {
     position: absolute;

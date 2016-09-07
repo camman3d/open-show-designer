@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import computeWidth from '../services/compute-width';
 import getGlobalOffset from '../services/get-global-offset';
 import { setTime } from '../services/actions';
+import layoutSizes from '../services/layout-sizes';
 
 export default class Timeline extends Component {
 
@@ -15,9 +16,6 @@ export default class Timeline extends Component {
     }
 
     componentDidMount() {
-        this.baseLeft = this.refs.base.getBoundingClientRect().left;
-        //this.baseLeft = getGlobalOffset(this.refs.base).left;
-        //console.log(this.baseLeft);
         window.addEventListener('mouseup', () => this.setState({setting: false}));
         window.addEventListener('mousemove', this.setTime);
     }
@@ -25,7 +23,7 @@ export default class Timeline extends Component {
     setTime(event) {
         if (this.state.setting) {
             let left = this.refs.base.getBoundingClientRect().left;
-            let pixels = event.pageX - this.baseLeft - 20 + (this.baseLeft - left);
+            let pixels = event.pageX - layoutSizes.tracksLeft - layoutSizes.trackMargin + (layoutSizes.tracksLeft - left);
             let time = (pixels / this.props.zoom) * 1000;
             time = Math.round(time * 1000) / 1000; // Clean up floating pointer
             setTime(time);
@@ -41,9 +39,7 @@ export default class Timeline extends Component {
 
         let markers = Array.apply(null, {length: Math.floor((this.props.duration + 1000) / 1000)}).map((_,i) => {
             let style = {width: this.props.zoom};
-            return <div key={i} className="marker" style={style}>
-                {i}s
-            </div>;
+            return <div key={i} className="marker" style={style}>{i}s</div>;
         });
 
         let timebarStyle = {

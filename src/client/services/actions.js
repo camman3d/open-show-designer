@@ -30,3 +30,7 @@ export function updateTrack(index, key, value) {
 export function addPoint(index, time, value) {
     emit('addPoint', {point: {time, value}, index});
 }
+
+export function updatePoint(index, pointIndex, point) {
+    emit('updatePoint', {index, pointIndex, point});
+}

@@ -43,8 +43,18 @@ export default class ShowEditor extends Component {
         addActionListener('addPoint', data => {
             let points = this.state.tracks[data.index].points.slice();
             points.push(data.point);
+            points.sort((a,b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
             let track = Object.assign({}, this.state.tracks[data.index], {points});
-            console.log(track);
+            let tracks = this.state.tracks.slice();
+            tracks[data.index] = track;
+            this.setState({tracks});
+        });
+        addActionListener('updatePoint', data => {
+            let points = this.state.tracks[data.index].points.slice();
+            points.forEach(p => p.active = false);
+            points[data.pointIndex] = data.point;
+            points.sort((a,b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
+            let track = Object.assign({}, this.state.tracks[data.index], {points});
             let tracks = this.state.tracks.slice();
             tracks[data.index] = track;
             this.setState({tracks});
