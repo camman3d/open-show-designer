@@ -16,7 +16,16 @@ export default class ShowEditor extends Component {
         this.state = {
             time: 2345,
             duration: 25900,
-            zoom: 100
+            zoom: 100,
+            tracks: [
+                {name: 'Track a', type: 'dmx', channel: 1, output: 'out1', enabled: true, points: [
+                    {time: 1000, value: 100},
+                    {time: 1500, value: 255},
+                    {time: 2500, value: 0}
+                ]},
+                {name: 'Track B', type: 'dmx', channel: 2, output: 'out2', enabled: false, points: []},
+                {name: 'Track 3', type: 'osc', channel: 1, output: 'out3', enabled: true, points: []}
+            ]
         };
     }
 
@@ -25,33 +34,35 @@ export default class ShowEditor extends Component {
         addActionListener('play', () => play(this.state.time, this.state.duration));
         addActionListener('stop', stop);
         addActionListener('rewind', () => setTime(0));
+        addActionListener('track', data => {
+            let track = Object.assign({}, this.state.tracks[data.index], data.data);
+            let tracks = this.state.tracks.slice();
+            tracks[data.index] = track;
+            this.setState({tracks});
+        });
+        addActionListener('addPoint', data => {
+            let points = this.state.tracks[data.index].points.slice();
+            points.push(data.point);
+            let track = Object.assign({}, this.state.tracks[data.index], {points});
+            console.log(track);
+            let tracks = this.state.tracks.slice();
+            tracks[data.index] = track;
+            this.setState({tracks});
+        });
 
         initPlayback();
     }
 
     render() {
-
         return <div id="show-editor">
             <Timecode time={this.state.time}/>
             <div id="controls">
-                <TrackControls />
-                <TrackControls />
-                <TrackControls />
-                <TrackControls />
-                <TrackControls />
-                <TrackControls />
-                <TrackControls />
+                {this.state.tracks.map((t, i) => <TrackControls track={t} index={i} key={i} />)}
             </div>
             <div id="tracks" style={computeWidth(this.state.duration, this.state.zoom)}>
                 <Timeline {...this.state} />
-
-                <Track />
-                <Track />
-                <Track />
-                <Track />
-                <Track />
-                <Track />
-                <Track />
+                {this.state.tracks.map((t, i) =>
+                    <Track zoom={this.state.zoom} duration={this.state.duration} track={t} index={i} key={i} />)}
                 <Slider {...this.state} />
             </div>
         </div>;

@@ -1,9 +1,35 @@
 .track {
+  position: relative;
   height: $track-height;
   border: 1px solid $color-gray-dark;
   border-left: none;
+  overflow: hidden;
   &:not(:last-child) {
     border-bottom: none;
+  }
+
+  .point {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 1px solid $color-primary-dark;
+    border-radius: 8px;
+    margin-left: -7.5px;
+    margin-top: -7.5px;
+    background: linear-gradient(lighten($color-primary, 5%), darken($color-primary, 5%));
+  }
+  svg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+  line {
+    stroke: $color-primary-dark;
+    stroke-width: 2px;
+  }
+  polygon {
+    fill: $color-primary;
+    fill-opacity: 0.3;
   }
 }
 

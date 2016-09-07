@@ -19,3 +19,14 @@ export function play() { emit('play'); }
 export function stop() { emit('stop'); }
 
 export function rewind() { emit('rewind'); }
+
+export function updateTrack(index, key, value) {
+    emit('track', {
+        data: {[key]: value},
+        index
+    });
+}
+
+export function addPoint(index, time, value) {
+    emit('addPoint', {point: {time, value}, index});
+}
