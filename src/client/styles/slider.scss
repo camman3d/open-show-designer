@@ -1,0 +1,19 @@
+#slider {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  background: $color-primary;
+  height: 100%;
+  pointer-events: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 29px;
+    left: -9px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top: 10px solid $color-primary-dark;
+  }
+}

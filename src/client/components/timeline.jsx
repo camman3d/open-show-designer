@@ -1,32 +1,47 @@
 import React, { Component } from 'react';
+import computeWidth from '../services/compute-width';
+import getGlobalOffset from '../services/get-global-offset';
+import { setTime } from '../services/actions';
 
 export default class Timeline extends Component {
 
     constructor(props) {
         super(props);
-        this.getTimecode = this.getTimecode.bind(this);
+        this.setTime = this.setTime.bind(this);
+        this.startSetTime = this.startSetTime.bind(this);
+        this.state = {
+            setting: false
+        };
     }
 
-    getTimecode() {
-        let millis = this.props.time;
-        let hours = Math.floor(millis / (1000 * 60 * 60));
-        millis -= hours * 1000 * 60 * 60;
-        let mins = Math.floor(millis / (1000 * 60));
-        millis -= mins * 1000 * 60;
-        let secs = Math.floor(millis / 1000);
-        millis -= secs * 1000;
+    componentDidMount() {
+        this.baseLeft = this.refs.base.getBoundingClientRect().left;
+        //this.baseLeft = getGlobalOffset(this.refs.base).left;
+        //console.log(this.baseLeft);
+        window.addEventListener('mouseup', () => this.setState({setting: false}));
+        window.addEventListener('mousemove', this.setTime);
+    }
 
-        mins = mins < 10 ? '0' + mins : '' + mins;
-        secs = secs < 10 ? '0' + secs : '' + secs;
-        millis = millis < 10 ? '00' + millis : '' + millis;
-        return [hours, mins, secs, millis].join(':');
+    setTime(event) {
+        if (this.state.setting) {
+            let left = this.refs.base.getBoundingClientRect().left;
+            let pixels = event.pageX - this.baseLeft - 20 + (this.baseLeft - left);
+            let time = (pixels / this.props.zoom) * 1000;
+            time = Math.round(time * 1000) / 1000; // Clean up floating pointer
+            setTime(time);
+        }
+    }
+
+    startSetTime(event) {
+        let pageX = event.pageX;
+        this.setState({setting: true}, () => this.setTime({pageX}));
     }
 
     render() {
 
-        let markers = Array.apply(null, {length: Math.ceil((this.props.duration + 1000) / 1000)}).map((_,i) => {
+        let markers = Array.apply(null, {length: Math.floor((this.props.duration + 1000) / 1000)}).map((_,i) => {
             let style = {width: this.props.zoom};
-            return <div className="marker" style={style}>
+            return <div key={i} className="marker" style={style}>
                 {i}s
             </div>;
         });
@@ -35,15 +50,10 @@ export default class Timeline extends Component {
             width: (this.props.duration / 1000) * this.props.zoom
         };
 
-        return <div id="timeline">
-            <div id="timecode">{this.getTimecode()}</div>
-            <div id="time">
-                <div id="time-overflow">
-                    <div id="time-bar-bg"></div>
-                    <div id="time-bar" style={timebarStyle}></div>
-                    <div id="time-markers">{markers}</div>
-                </div>
-            </div>
-        </div>
+        return <div id="timeline" onMouseDown={this.startSetTime} ref="base">
+            <div id="time-bar-bg"></div>
+            <div id="time-bar" style={timebarStyle}></div>
+            <div id="time-markers">{markers}</div>
+        </div>;
     }
 }

@@ -1,0 +1,52 @@
+#editor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#show-selector {
+  position: absolute;
+  top: 0;
+  width: $show-selector-width;
+  bottom: $show-controls-height;
+  border-right: 1px solid $color-gray-dark;
+}
+
+#show-editor {
+  position: absolute;
+  top: 0;
+  left: $show-selector-width;
+  right: 0;
+  bottom: $show-controls-height;
+  overflow: auto;
+}
+
+#show-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $show-controls-height;
+  border-top: 1px solid $color-gray-dark;
+  padding: 10px;
+  text-align: center;
+
+  button {
+    margin: 0 3px;
+  }
+}
+
+#controls {
+  position: absolute;
+  left: 0;
+  top: $timeline-height;
+  width: $control-width;
+  border-right: 1px solid $color-gray-dark;
+}
+
+#tracks {
+  position: absolute;
+  top: 0;
+  left: $control-width;
+  right: 0;
+}

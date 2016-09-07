@@ -1,27 +1,19 @@
-#timeline {
-  position: relative;
-}
-
 #timecode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
   width: $control-width;
   height: $timeline-height;
   text-align: right;
   padding: 18px;
   font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  border-right: 1px solid $color-gray-dark;
+  border-bottom: 1px solid $color-gray-dark;
 }
 
-#time {
-  position: absolute;
-  left: $control-width;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  user-select: none;
-  overflow-x: auto;
-}
-
-#time-overflow {
+#timeline {
+  height: $timeline-height;
+  position: relative;
 }
 
 #time-bar-bg {
@@ -51,13 +43,34 @@
     font-size: 11px;
     padding-left: 2px;
     height: 20px;
+    position: relative;
 
     &:first-child {
       border-left: 1px solid $color-gray-dark;
     }
     &:last-child {
       border-right: none;
-      margin-right: 20px;
+      width: 20px !important;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 25%;
+      width: 50%;
+      height: 50%;
+      bottom: 0;
+      border-left: 1px solid;
+      border-right: 1px solid;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 50%;
+      bottom: 0;
+      border-left: 1px solid;
     }
   }
 }

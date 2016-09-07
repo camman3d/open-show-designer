@@ -28,7 +28,6 @@ export default class Toggle extends Component {
         if (this.state.checked) {
             classNames += ' checked';
         }
-        console.log(this.props.children);
         return <button className={classNames} onClick={this.handleClick}>{this.props.children}</button>;
     }
 }

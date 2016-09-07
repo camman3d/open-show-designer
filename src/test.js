@@ -9,3 +9,7 @@
 //client.set(1, 3, 30);
 //
 //setTimeout(() => client.close(), 150);
+
+exports.setDmx = function (a, b) {
+    console.log(a,b);
+} ;

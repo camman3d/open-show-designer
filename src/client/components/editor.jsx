@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
-import Timeline from './timeline.jsx';
-import Track from './track.jsx';
+import ShowSelector from './show-selector.jsx';
+import ShowEditor from './show-editor.jsx';
+import ShowControls from './show-controls.jsx';
 
 export default class Editor extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            time: 2345,
-            duration: 25000,
-            zoom: 100
-        };
-    }
-
     render() {
-        return <div>
-            <Timeline {...this.state} />
-            <Track />
-            <Track />
+        //<Timeline {...this.state} />
+
+        return <div id="editor">
+            <ShowSelector />
+            <ShowEditor />
+            <ShowControls />
         </div>;
     }
 }

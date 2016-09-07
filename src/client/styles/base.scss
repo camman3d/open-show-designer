@@ -13,6 +13,7 @@ input {
 
 @mixin create-button($background, $border, $shadow, $font) {
   @include form-base($border);
+  min-width: $form-height + 2;
   color: $font;
   background: $background linear-gradient(lighten($background, 5%), darken($background, 5%));
 

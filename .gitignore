@@ -77,4 +77,4 @@ build/Release
 node_modules
 
 
-dist/
+src/view/bundle.js

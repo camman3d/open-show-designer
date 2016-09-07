@@ -14,5 +14,18 @@ body, div, p, input, select {
   color: $font-color;
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+}
+
+#js-main {
+  width: 100%;
+  height: 100%;
+}
+
+@import "editor";
 @import "track";
 @import "timeline";
+@import "slider";
