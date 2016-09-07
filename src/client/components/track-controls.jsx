@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Toggle from './toggle.jsx';
-import { updateTrack } from '../services/actions';
+import { updateTrack, updatePoint } from '../services/actions';
 
 export default class TrackControls extends Component {
 
@@ -9,6 +9,7 @@ export default class TrackControls extends Component {
 
         this.toggleTrack = this.toggleTrack.bind(this);
         this.changeTrack = this.changeTrack.bind(this);
+        this.changePoint = this.changePoint.bind(this);
     }
 
     toggleTrack(value) {
@@ -22,8 +23,17 @@ export default class TrackControls extends Component {
         };
     }
 
+    changePoint(activePoint, key) {
+        return event => {
+            let value = Number(event.target.value);
+            value = isNaN(value) ? event.target.value : value;
+            updatePoint(this.props.index, activePoint.index, {[key]: value});
+        }
+    }
+
     render() {
         const { track } = this.props;
+        let activePoint = track.points.map((point, index) => ({index, point})).find(p => p.point.active);
 
         return <div className="track-controls">
             <div className="track-controls-section">
@@ -42,6 +52,11 @@ export default class TrackControls extends Component {
             {track.type === 'dmx' ? <div className="track-controls-section">
                 Channel:&nbsp;
                 <input type="number" min="1" max="512" step="1" value={track.channel} onChange={this.changeTrack('channel', true)} />
+            </div> : null}
+            {activePoint ? <div className="track-controls-section">
+                <div className="half">T: <input type="text" onChange={this.changePoint(activePoint, 'time')} value={activePoint.point.time} /></div>
+                {track.type === 'dmx' ? <div className="half">V: <input type="text" onChange={this.changePoint(activePoint, 'value')} value={activePoint.point.value} /></div> : null}
+                {track.type === 'osc' ? <div className="half">P: <input type="text" onChange={this.changePoint(activePoint, 'path')} value={activePoint.point.path} /></div> : null}
             </div> : null}
         </div>;
     }

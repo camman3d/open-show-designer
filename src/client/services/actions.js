@@ -6,13 +6,14 @@ export default function addActionListener(action, handler) {
     listeners[action].push(handler);
 }
 
-function emit(action, data) {
+function emit(action) {
+    let args = Array.prototype.slice.call(arguments, 1);
     if (listeners[action]) {
-        listeners[action].forEach(l => l(data));
+        listeners[action].forEach(l => l.apply(null, args));
     }
 }
 
-export function setTime(time) { emit('time', time); }
+export function setTime(time, prevTime) { emit('time', time, prevTime); }
 
 export function play() { emit('play'); }
 

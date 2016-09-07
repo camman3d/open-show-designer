@@ -15,7 +15,7 @@ input {
   @include form-base($border);
   min-width: $form-height + 2;
   color: $font;
-  background: $background linear-gradient(lighten($background, 5%), darken($background, 5%));
+  background: $background linear-gradient(lighten($background, 10%), darken($background, 10%));
 
   &:active {
     box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);

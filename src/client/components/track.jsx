@@ -50,12 +50,16 @@ export default class Track extends Component {
         const { track } = this.props;
 
         let pointsPos = track.points.map(p => this.getPointPos(p));
-        let connections = Array.apply(null, {length: pointsPos.length - 1})
-            .map((_, i) => connect(pointsPos[i], pointsPos[i+1], i));
+        let connections;
+        if (track.type === 'dmx') {
+            connections = Array.apply(null, {length: pointsPos.length - 1})
+                .map((_, i) => connect(pointsPos[i], pointsPos[i+1], i));
+        }
 
         return <div className="track" ref="base" onDoubleClick={this.addPoint}>
             {connections}
-            {pointsPos.map((pos, i) => <Point {...this.props} pos={pos} key={i} pointIndex={i} point={track.points[i]} />)}
+            {pointsPos.map((pos, i) =>
+                <Point {...this.props} pos={pos} key={i} pointIndex={i} point={track.points[i]} type={track.type} />)}
         </div>;
     }
 }

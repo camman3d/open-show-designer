@@ -29,14 +29,14 @@ export default class Point extends Component {
             let value = 255 - Math.round((pixels.y / rect.height) * 255);
             value = Math.min(255, Math.max(0, value));
 
-            updatePoint(this.props.index, this.props.pointIndex, {active: true, moving: true, time, value});
+            updatePoint(this.props.index, this.props.pointIndex, {time, value});
         }
     }
 
     handleUp() {
         let { time, value, moving } = this.props.point;
         if (moving) {
-            updatePoint(this.props.index, this.props.pointIndex, {moving: false, active: true, time, value});
+            updatePoint(this.props.index, this.props.pointIndex, {moving: false, time, value});
         }
     }
 
@@ -46,7 +46,10 @@ export default class Point extends Component {
     }
 
     render() {
-        let classes = 'point ' + (this.props.point.active ? 'active' : '');
-        return <div className={classes} ref="point" style={this.props.pos} onMouseDown={this.handleDown}></div>
+        let { point } = this.props;
+        let classes = 'point ' + (point.active ? 'active' : '');
+        return <div className={classes} ref="point" style={this.props.pos} onMouseDown={this.handleDown}>
+            {this.props.type === 'osc' ? <div className="osc-path">{point.path}</div> : null}
+        </div>
     }
 }

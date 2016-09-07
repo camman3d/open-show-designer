@@ -6,7 +6,7 @@ import Slider from './slider.jsx';
 import Track from './track.jsx';
 import computeWidth from '../services/compute-width';
 import addActionListener, { setTime } from '../services/actions';
-import { init as initPlayback, play, stop } from '../services/playback';
+import { init as initPlayback, play, stop, transmit } from '../services/playback';
 
 export default class ShowEditor extends Component {
 
@@ -24,13 +24,18 @@ export default class ShowEditor extends Component {
                     {time: 2500, value: 0}
                 ]},
                 {name: 'Track B', type: 'dmx', channel: 2, output: 'out2', enabled: false, points: []},
-                {name: 'Track 3', type: 'osc', channel: 1, output: 'out3', enabled: true, points: []}
+                {name: 'Track 3', type: 'osc', channel: 1, output: 'out3', enabled: true, points: [
+                    {time: 1234, value: 100, path: '/asdf/qwer'}
+                ]}
             ]
         };
     }
 
     componentDidMount() {
-        addActionListener('time', time => this.setState({time: Math.min(Math.max(0, time), this.state.duration)}));
+        addActionListener('time', (time, prev) => {
+            this.setState({time: Math.min(Math.max(0, time), this.state.duration)});
+            transmit(this.state.tracks, prev, time);
+        });
         addActionListener('play', () => play(this.state.time, this.state.duration));
         addActionListener('stop', stop);
         addActionListener('rewind', () => setTime(0));
@@ -51,8 +56,12 @@ export default class ShowEditor extends Component {
         });
         addActionListener('updatePoint', data => {
             let points = this.state.tracks[data.index].points.slice();
-            points.forEach(p => p.active = false);
-            points[data.pointIndex] = data.point;
+            points.forEach((p,i) => {
+                if (i != data.pointIndex) {
+                    p.active = false
+                }
+            });
+            points[data.pointIndex] = Object.assign({}, points[data.pointIndex], data.point);
             points.sort((a,b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
             let track = Object.assign({}, this.state.tracks[data.index], {points});
             let tracks = this.state.tracks.slice();
