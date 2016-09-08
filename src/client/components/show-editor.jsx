@@ -8,14 +8,15 @@ import computeWidth from '../services/compute-width';
 import addActionListener, { setTime } from '../services/actions';
 import { play, stop } from '../services/playback';
 import { init as initOutput, getOutputs, transmit } from '../services/output';
+import { init as initSaveLoad, save } from '../services/save-load';
 
 export default class ShowEditor extends Component {
 
     constructor(props) {
         super(props);
 
-        initOutput();
         this.state = {
+            name: 'Untitled',
             time: 2345,
             duration: 25900,
             zoom: 100,
@@ -73,6 +74,14 @@ export default class ShowEditor extends Component {
             let tracks = this.state.tracks.slice();
             tracks[data.index] = track;
             this.setState({tracks});
+        });
+        addActionListener('save', () => {
+            let document = Object.assign({}, this.state);
+            delete document.outputs;
+            save(document);
+        });
+        addActionListener('load', document => {
+            this.setState(document);
         });
     }
 

@@ -1,24 +1,21 @@
-let dataTransmitter;
+let dataTransmitter = {
+    sendDmx: (output, channel, value) => {
+        console.log('Send dmx', output, channel, value);
+    },
+    sendOsc: (output, path) => {
+        console.log('Send osc', output, path);
+    },
+    getOutputs: () => ({
+        "dmx1": {"type": "dmx", "name": "DMX Output", "universe": 1, "host": "192.168.1.134"},
+        "osc1": {"type": "osc", "name": "VPT7", "host": "127.0.0.1", "port": 6666}
+    })
+};
 
-export function init() {
-    if (process.env.TARGET === 'web') {
-        console.log('Running in web mode');
-        dataTransmitter = {
-            sendDmx: (output, channel, value) => {
-                console.log('Send dmx', output, channel, value);
-            },
-            sendOsc: (output, path) => {
-                console.log('Send osc', output, path);
-            },
-            getOutputs: () => ({
-                "dmx1": {"type": "dmx", "name": "DMX Output", "universe": 1, "host": "192.168.1.134"},
-                "osc1": {"type": "osc", "name": "VPT7", "host": "127.0.0.1", "port": 6666}
-            })
-        };
-    } else {
-        console.log('Running in electron mode');
-        dataTransmitter = require('electron').remote.require('./data-transmitter');
-    }
+if (process.env.TARGET === 'web') {
+    console.log('Running in web mode');
+} else {
+    console.log('Running in electron mode');
+    dataTransmitter = require('electron').remote.require('./data-transmitter');
 }
 
 export function getOutputs() {

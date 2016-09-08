@@ -35,3 +35,6 @@ export function addPoint(index, time, value) {
 export function updatePoint(index, pointIndex, point) {
     emit('updatePoint', {index, pointIndex, point});
 }
+
+export function save() { emit('save'); }
+export function load(document) { emit('load', document); }
