@@ -14,9 +14,15 @@ Open a browser to `http://localhost:8080/webpack-dev-server/`
 - [x] Sending OSC
 - [x] Saving files
 - [x] Opening files
-- [ ] Adding tracks
+- [x] Adding tracks
 - [ ] Color tracks
+- [ ] Audio tracks
+- [ ] Delete track
+- [ ] Delete points
+- [ ] Keyboard shortcuts
+- [ ] Menus
 - [ ] Multiple shows
+- [ ] Show triggers
 - [ ] Auto scroll while playing
 - [ ] Make timeline and track controls sticky
 - [ ] OSC Send arguments

@@ -46,6 +46,11 @@ export default class ShowEditor extends Component {
         });
         addActionListener('stop', stop);
         addActionListener('rewind', () => setTime(0));
+        addActionListener('addTrack', track => {
+            let tracks = this.state.tracks.slice();
+            tracks.push(track);
+            this.setState({tracks});
+        });
         addActionListener('track', data => {
             let track = Object.assign({}, this.state.tracks[data.index], data.data);
             let tracks = this.state.tracks.slice();
@@ -87,8 +92,8 @@ export default class ShowEditor extends Component {
 
     render() {
         return <div id="show-editor">
-            <Timecode time={this.state.time}/>
             <div id="controls">
+                <Timecode time={this.state.time}/>
                 {this.state.tracks.map((t, i) => <TrackControls track={t} index={i} key={i} outputs={this.state.outputs} />)}
             </div>
             <div id="tracks" style={computeWidth(this.state.duration, this.state.zoom)}>

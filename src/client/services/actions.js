@@ -21,6 +21,8 @@ export function stop() { emit('stop'); }
 
 export function rewind() { emit('rewind'); }
 
+export function addTrack(track) { emit('addTrack', track); }
+
 export function updateTrack(index, key, value) {
     emit('track', {
         data: {[key]: value},
@@ -37,4 +39,5 @@ export function updatePoint(index, pointIndex, point) {
 }
 
 export function save() { emit('save'); }
+
 export function load(document) { emit('load', document); }

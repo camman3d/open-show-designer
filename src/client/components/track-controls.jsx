@@ -46,6 +46,7 @@ export default class TrackControls extends Component {
             </div>
             <div className="track-controls-section">
                 <select value={track.output} onChange={this.changeTrack('output')}>
+                    <option value="">No Output</option>
                     {outputOptions}
                 </select>
             </div>

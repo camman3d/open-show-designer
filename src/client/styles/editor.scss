@@ -19,29 +19,16 @@
   right: 0;
   bottom: $show-controls-height;
   overflow: auto;
-}
-
-#show-controls {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: $show-controls-height;
-  border-top: 1px solid $color-gray-dark;
-  padding: 10px;
-  text-align: center;
-
-  button {
-    margin: 0 3px;
-  }
+  background: $color-gray-light;
 }
 
 #controls {
   position: absolute;
   left: 0;
-  top: $timeline-height;
+  top: 0;
   width: $control-width;
   border-right: 1px solid $color-gray-dark;
+  background: white;
 }
 
 #tracks {
@@ -49,4 +36,5 @@
   top: 0;
   left: $control-width;
   right: 0;
+  background: white;
 }

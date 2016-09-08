@@ -26,7 +26,7 @@ input {
 }
 
 button, .btn {
-  @include create-button($color-white, $color-gray-dark, $color-gray-light, $font-color);
+  @include create-button($color-white, $color-gray-dark, $color-gray-med, $font-color);
 
   &.btn-primary {
     @include create-button($color-primary, $color-primary-dark, $color-primary-dark, $color-white);
@@ -41,7 +41,7 @@ select {
 
 
 .toggle {
-  @include create-button($color-white, $color-gray-dark, $color-gray-light, $font-color);
+  @include create-button($color-white, $color-gray-dark, $color-gray-med, $font-color);
 
   //&:active {
   //  box-shadow: inset 3px 3px 5px $color-primary-dark;

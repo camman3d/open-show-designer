@@ -1,0 +1,59 @@
+#show-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $show-controls-height;
+  border-top: 1px solid $color-gray-dark;
+  overflow: hidden;
+
+  button {
+    margin: 0 3px;
+  }
+  > div {
+    padding: 10px;
+  }
+}
+
+#show-selector-controls {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: $show-selector-width;
+  height: $show-controls-height;
+  border-right: 1px solid $color-gray-dark;
+}
+
+#show-track-controls {
+  position: absolute;
+  left: $show-selector-width;
+  top: 0;
+  width: $control-width;
+  height: $show-controls-height;
+  border-right: 1px solid $color-gray-dark;
+}
+
+#show-playback-controls {
+  position: absolute;
+  left: $show-selector-width + $control-width;
+  top: 0;
+  right: 0;
+  height: $show-controls-height;
+}
+
+
+//#show-track-controls, #show-playback-controls, #show-file-controls {
+//  display: inline-block;
+//}
+
+#show-track-controls {
+  float: left;
+
+  select {
+    width: 100px;
+  }
+}
+
+//#show-file-controls {
+//  float: right;
+//}

@@ -1,8 +1,4 @@
 #timecode {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: white;
   width: $control-width;
   height: $timeline-height;
   text-align: right;
@@ -14,6 +10,7 @@
 #timeline {
   height: $timeline-height;
   position: relative;
+  border-bottom: 1px solid $color-gray-dark;
 }
 
 #time-bar-bg {
