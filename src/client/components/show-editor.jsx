@@ -6,26 +6,29 @@ import Slider from './slider.jsx';
 import Track from './track.jsx';
 import computeWidth from '../services/compute-width';
 import addActionListener, { setTime } from '../services/actions';
-import { init as initPlayback, play, stop, transmit } from '../services/playback';
+import { play, stop } from '../services/playback';
+import { init as initOutput, getOutputs, transmit } from '../services/output';
 
 export default class ShowEditor extends Component {
 
     constructor(props) {
         super(props);
 
+        initOutput();
         this.state = {
             time: 2345,
             duration: 25900,
             zoom: 100,
+            outputs: getOutputs(),
             tracks: [
-                {name: 'Track a', type: 'dmx', channel: 1, output: 'out1', enabled: true, points: [
+                {name: 'Track a', type: 'dmx', channel: 1, output: 'dmx1', enabled: true, points: [
                     {time: 1000, value: 100},
                     {time: 1500, value: 255},
                     {time: 2500, value: 0}
                 ]},
-                {name: 'Track B', type: 'dmx', channel: 2, output: 'out2', enabled: false, points: []},
-                {name: 'Track 3', type: 'osc', channel: 1, output: 'out3', enabled: true, points: [
-                    {time: 1234, value: 100, path: '/asdf/qwer'}
+                {name: 'Track B', type: 'dmx', channel: 2, output: 'dmx1', enabled: false, points: []},
+                {name: 'Track 3', type: 'osc', channel: 1, output: 'osc1', enabled: true, points: [
+                    {time: 1234, value: 100, path: '/sources/1video/start'}
                 ]}
             ]
         };
@@ -36,7 +39,10 @@ export default class ShowEditor extends Component {
             this.setState({time: Math.min(Math.max(0, time), this.state.duration)});
             transmit(this.state.tracks, prev, time);
         });
-        addActionListener('play', () => play(this.state.time, this.state.duration));
+        addActionListener('play', () => {
+            transmit(this.state.tracks, undefined, this.state.time);
+            play(this.state.time, this.state.duration);
+        });
         addActionListener('stop', stop);
         addActionListener('rewind', () => setTime(0));
         addActionListener('track', data => {
@@ -68,15 +74,13 @@ export default class ShowEditor extends Component {
             tracks[data.index] = track;
             this.setState({tracks});
         });
-
-        initPlayback();
     }
 
     render() {
         return <div id="show-editor">
             <Timecode time={this.state.time}/>
             <div id="controls">
-                {this.state.tracks.map((t, i) => <TrackControls track={t} index={i} key={i} />)}
+                {this.state.tracks.map((t, i) => <TrackControls track={t} index={i} key={i} outputs={this.state.outputs} />)}
             </div>
             <div id="tracks" style={computeWidth(this.state.duration, this.state.zoom)}>
                 <Timeline {...this.state} />

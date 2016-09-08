@@ -32,8 +32,10 @@ export default class TrackControls extends Component {
     }
 
     render() {
-        const { track } = this.props;
+        const { track, outputs } = this.props;
         let activePoint = track.points.map((point, index) => ({index, point})).find(p => p.point.active);
+
+        let outputOptions = Object.keys(outputs).map(key => <option key={key} value={key}>{outputs[key].name}</option>);
 
         return <div className="track-controls">
             <div className="track-controls-section">
@@ -44,9 +46,7 @@ export default class TrackControls extends Component {
             </div>
             <div className="track-controls-section">
                 <select value={track.output} onChange={this.changeTrack('output')}>
-                    <option value="out1">Output 1</option>
-                    <option value="out2">Output 2</option>
-                    <option value="out3">Output 3</option>
+                    {outputOptions}
                 </select>
             </div>
             {track.type === 'dmx' ? <div className="track-controls-section">

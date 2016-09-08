@@ -1,4 +1,5 @@
 const { app, BrowserWindow, crashReporter } = require('electron');
+let dataTransmitter = require('./data-transmitter');
 
 //crashReporter.start({
 //    productName: 'Open Show Designer',
@@ -16,5 +17,6 @@ app.on('ready', function() {
 
     mainWindow.on('closed', function() {
         mainWindow = null;
+        dataTransmitter.closeClients();
     });
 });
