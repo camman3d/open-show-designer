@@ -49,7 +49,10 @@ export default class Point extends Component {
         let { point } = this.props;
         let classes = 'point ' + (point.active ? 'active' : '');
         return <div className={classes} ref="point" style={this.props.pos} onMouseDown={this.handleDown}>
-            {this.props.type === 'osc' ? <div className="osc-path">{point.path}</div> : null}
+            {this.props.type === 'osc' ? <div className="point-info">{point.path}</div> : null}
+            {this.props.type === 'color' ? <div className="point-info">
+                <div className="color-swatch" style={{background: point.color}}></div>
+            </div> : null}
         </div>
     }
 }

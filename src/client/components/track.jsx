@@ -25,6 +25,9 @@ export default class Track extends Component {
     }
 
     addPoint(event) {
+        if (this.props.track.type === 'audio') {
+            return;
+        }
         let rect = this.refs.base.getBoundingClientRect();
         let pixels = {
             x: event.pageX - layoutSizes.tracksLeft - layoutSizes.trackMargin + (layoutSizes.tracksLeft - rect.left),
@@ -36,7 +39,14 @@ export default class Track extends Component {
         if (time < 0 || time > this.props.duration) {
             return;
         }
-        addPoint(this.props.index, time, value);
+        let point = {time, value};
+        if (this.props.track.type === 'color') {
+            point.color = '#000000';
+        }
+        if (this.props.track.type === 'osc') {
+            point.path = '';
+        }
+        addPoint(this.props.index, point);
     }
 
     getPointPos(point) {

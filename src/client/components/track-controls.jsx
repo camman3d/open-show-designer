@@ -50,7 +50,7 @@ export default class TrackControls extends Component {
                     {outputOptions}
                 </select>
             </div>
-            {track.type === 'dmx' ? <div className="track-controls-section">
+            {(track.type === 'dmx' || track.type === 'color') ? <div className="track-controls-section">
                 Channel:&nbsp;
                 <input type="number" min="1" max="512" step="1" value={track.channel} onChange={this.changeTrack('channel', true)} />
             </div> : null}
@@ -58,6 +58,7 @@ export default class TrackControls extends Component {
                 <div className="half">T: <input type="text" onChange={this.changePoint(activePoint, 'time')} value={activePoint.point.time} /></div>
                 {track.type === 'dmx' ? <div className="half">V: <input type="text" onChange={this.changePoint(activePoint, 'value')} value={activePoint.point.value} /></div> : null}
                 {track.type === 'osc' ? <div className="half">P: <input type="text" onChange={this.changePoint(activePoint, 'path')} value={activePoint.point.path} /></div> : null}
+                {track.type === 'color' ? <div className="half">P: <input type="color" onChange={this.changePoint(activePoint, 'color')} value={activePoint.point.color} /></div> : null}
             </div> : null}
         </div>;
     }

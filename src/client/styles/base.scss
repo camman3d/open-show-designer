@@ -42,18 +42,14 @@ select {
 
 .toggle {
   @include create-button($color-white, $color-gray-dark, $color-gray-med, $font-color);
-
-  //&:active {
-  //  box-shadow: inset 3px 3px 5px $color-primary-dark;
-  //  background: $color-primary;
-  //  border-color: $color-primary-dark;
-  //}
-
   &.checked {
     @include create-button($color-primary, $color-primary-dark, $color-primary-dark, $color-white);
-    //box-shadow: inset 2px 2px 2px $color-primary-dark;
-    //&:active {
-    //  box-shadow: inset 3px 3px 5px $color-primary-dark;
-    //}
   }
+}
+
+input[type='color'] {
+  background: white;
+}
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
 }

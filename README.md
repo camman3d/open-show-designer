@@ -15,7 +15,7 @@ Open a browser to `http://localhost:8080/webpack-dev-server/`
 - [x] Saving files
 - [x] Opening files
 - [x] Adding tracks
-- [ ] Color tracks
+- [x] Color tracks
 - [ ] Audio tracks
 - [ ] Delete track
 - [ ] Delete points

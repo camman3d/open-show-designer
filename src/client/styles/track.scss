@@ -20,27 +20,36 @@
       box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
     }
     &:hover {
-      transform: scale(1.4);
+      transform: scale(1.2);
     }
   }
-  .osc-path {
+  .point-info {
     position: absolute;
-    top: -2px;
-    left: 20px;
-    background: $color-secondary;
-    padding: 1px 3px;
+    top: -5px;
+    left: 22px;
+    background: $color-white;
+    border: 1px solid $color-gray-med;
+    padding: 2px 4px;
     font-size: 12px;
     border-radius: 0 3px 3px 0;
     min-width: 10px;
-    height: 17px;
     white-space: nowrap;
+    height: 20px;
 
     &:before {
       content: '';
-      border: 9px solid transparent;
+      border: 10px solid transparent;
       position: absolute;
-      border-right: 9px solid $color-secondary;
-      left: -18px;
+      border-right: 9px solid $color-gray-med;
+      left: -20px;
+      top: -1px;
+    }
+    &:after {
+      content: '';
+      border: 10px solid transparent;
+      position: absolute;
+      border-right: 9px solid $color-white;
+      left: -19px;
       top: -1px;
     }
   }
@@ -57,6 +66,13 @@
     fill: $color-primary;
     fill-opacity: 0.3;
   }
+}
+
+.color-swatch {
+  width: 20px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid $color-gray-dark;
 }
 
 .track-controls {
