@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Toggle from './toggle.jsx';
 import { updateTrack, updatePoint } from '../services/actions';
+import { openMedia } from '../services/save-load';
+import { registerMedia } from '../services/media-registry';
 
 export default class TrackControls extends Component {
 
@@ -10,6 +12,7 @@ export default class TrackControls extends Component {
         this.toggleTrack = this.toggleTrack.bind(this);
         this.changeTrack = this.changeTrack.bind(this);
         this.changePoint = this.changePoint.bind(this);
+        this.loadFile = this.loadFile.bind(this);
     }
 
     toggleTrack(value) {
@@ -29,6 +32,13 @@ export default class TrackControls extends Component {
             value = isNaN(value) ? event.target.value : value;
             updatePoint(this.props.index, activePoint.index, {[key]: value});
         }
+    }
+
+    loadFile() {
+        openMedia().then(media => {
+            registerMedia(media);
+            updateTrack(this.props.index, 'src', media.src);
+        });
     }
 
     render() {
@@ -54,6 +64,12 @@ export default class TrackControls extends Component {
                 Channel:&nbsp;
                 <input type="number" min="1" max="512" step="1" value={track.channel} onChange={this.changeTrack('channel', true)} />
             </div> : null}
+            {track.type === 'media' ? <div className="track-controls-section">
+                <div>Src: {track.src || 'None'}</div>
+                <div>
+                    <button onClick={this.loadFile}>Select File</button>
+                </div>
+            </div>: null}
             {activePoint ? <div className="track-controls-section">
                 <div className="half">T: <input type="text" onChange={this.changePoint(activePoint, 'time')} value={activePoint.point.time} /></div>
                 {track.type === 'dmx' ? <div className="half">V: <input type="text" onChange={this.changePoint(activePoint, 'value')} value={activePoint.point.value} /></div> : null}

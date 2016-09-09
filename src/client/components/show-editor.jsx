@@ -4,6 +4,7 @@ import TrackControls from './track-controls.jsx';
 import Timecode from './timecode.jsx';
 import Slider from './slider.jsx';
 import Track from './track.jsx';
+import MediaTrack from './media-track.jsx';
 import computeWidth from '../services/compute-width';
 import addActionListener, { setTime } from '../services/actions';
 import { play, stop } from '../services/playback';
@@ -18,16 +19,16 @@ export default class ShowEditor extends Component {
         this.state = {
             name: 'Untitled',
             time: 2345,
-            duration: 25900,
+            duration: 192000,
             zoom: 100,
             outputs: getOutputs(),
             tracks: [
+                {name: 'teh media', type: 'media', channel: 1, src: '', output: '', enabled: true, points: []},
                 {name: 'Track a', type: 'dmx', channel: 1, output: 'dmx1', enabled: true, points: [
                     {time: 1000, value: 100},
                     {time: 1500, value: 255},
                     {time: 2500, value: 0}
                 ]},
-                {name: 'Track B', type: 'dmx', channel: 2, output: 'dmx1', enabled: false, points: []},
                 {name: 'Track 3', type: 'osc', channel: 1, output: 'osc1', enabled: true, points: [
                     {time: 1234, value: 100, path: '/sources/1video/start'}
                 ]}
@@ -36,6 +37,7 @@ export default class ShowEditor extends Component {
     }
 
     componentDidMount() {
+        addActionListener('duration', duration => this.setState({duration}));
         addActionListener('time', (time, prev) => {
             this.setState({time: Math.min(Math.max(0, time), this.state.duration)});
             transmit(this.state.tracks, prev, time);
@@ -98,8 +100,13 @@ export default class ShowEditor extends Component {
             </div>
             <div id="tracks" style={computeWidth(this.state.duration, this.state.zoom)}>
                 <Timeline {...this.state} />
-                {this.state.tracks.map((t, i) =>
-                    <Track zoom={this.state.zoom} duration={this.state.duration} track={t} index={i} key={i} />)}
+                {this.state.tracks.map((t, i) => {
+                    if (t.type === 'media') {
+                        return <MediaTrack {...this.state} track={t} index={i} key={i}/>;
+                    } else {
+                        return <Track {...this.state} track={t} index={i} key={i}/>;
+                    }
+                })}
                 <Slider {...this.state} />
             </div>
         </div>;

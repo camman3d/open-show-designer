@@ -25,9 +25,6 @@ export default class Track extends Component {
     }
 
     addPoint(event) {
-        if (this.props.track.type === 'audio') {
-            return;
-        }
         let rect = this.refs.base.getBoundingClientRect();
         let pixels = {
             x: event.pageX - layoutSizes.tracksLeft - layoutSizes.trackMargin + (layoutSizes.tracksLeft - rect.left),

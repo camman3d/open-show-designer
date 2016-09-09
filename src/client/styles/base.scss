@@ -53,3 +53,10 @@ input[type='color'] {
 input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;
 }
+
+video {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

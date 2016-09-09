@@ -6,12 +6,21 @@ export default function addActionListener(action, handler) {
     listeners[action].push(handler);
 }
 
+export function removeActionListener(action, handler) {
+    let index = listeners[action].indexOf(handler);
+    if (index >= 0) {
+        listeners[action].splice(index, 1);
+    }
+}
+
 function emit(action) {
     let args = Array.prototype.slice.call(arguments, 1);
     if (listeners[action]) {
         listeners[action].forEach(l => l.apply(null, args));
     }
 }
+
+export function setDuration(duration) { emit('duration', duration); }
 
 export function setTime(time, prevTime) { emit('time', time, prevTime); }
 

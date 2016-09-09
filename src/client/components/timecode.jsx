@@ -1,4 +1,5 @@
 import React from 'react';
+import { setDuration } from '../services/actions';
 
 export default props => {
     let millis = props.time;

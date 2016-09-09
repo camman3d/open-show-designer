@@ -1,4 +1,4 @@
-import addActionListener, { setTime } from './actions';
+import addActionListener, { setTime, stop as stopAction } from './actions';
 
 let playInterval;
 let playStatus = 'stopped';
@@ -28,7 +28,7 @@ export function play(startTime, showDuration) {
 
         // Check
         if (playTime >= showDuration) {
-            stop();
+            stopAction();
         }
     }, 30);
 }

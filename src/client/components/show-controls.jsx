@@ -9,7 +9,11 @@ export default class ShowControls extends Component {
     }
 
     createTrack() {
-        let track = {type: this.refs.trackType.value, points: [], channel: 1, output: '', name: '', enabled: true};
+        let type = this.refs.trackType.value;
+        let track = {points: [], channel: 1, output: '', name: '', enabled: true, type};
+        if (type === 'media') {
+            track.src = '';
+        }
         addTrack(track);
     }
 
@@ -23,7 +27,7 @@ export default class ShowControls extends Component {
                     <option value="dmx">DMX Values</option>
                     <option value="color">DMX Color (3 channel)</option>
                     <option value="osc">OSC Flags</option>
-                    <option value="audio">Audio Track</option>
+                    <option value="media">Media Track</option>
                 </select>
                 <button onClick={this.createTrack}><i className="fa fa-plus" /> Track</button>
             </div>
