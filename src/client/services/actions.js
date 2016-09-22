@@ -20,6 +20,8 @@ function emit(action) {
     }
 }
 
+export function selectShow(index) { emit('selectShow', index); }
+
 export function setDuration(duration) { emit('duration', duration); }
 
 export function setTime(time, prevTime) { emit('time', time, prevTime); }
