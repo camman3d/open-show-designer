@@ -32,7 +32,14 @@ exports.sendOsc = function (output, path) {
     if (!clients[output]) {
         console.log('Unknown client: ' + output);
     } else {
-        clients[output].send(path);
+        let parts = path.split(' ');
+        parts.forEach((part, i) => {
+            let n = Number(part);
+            if (!isNaN(n)) {
+                parts[i] = n;
+            }
+        });
+        clients[output].send.apply(clients[output], parts);
     }
 };
 

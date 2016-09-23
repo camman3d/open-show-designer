@@ -52,3 +52,15 @@ export function updatePoint(index, pointIndex, point) {
 export function save() { emit('save'); }
 
 export function load(document) { emit('load', document); }
+
+export function newShow() {
+    emit('load', {
+        name: 'untitled',
+        duration: 10000,
+        time: 0,
+        zoom: 100,
+        tracks: []
+    });
+}
+
+export function removeShow(index) { emit('removeShow', index); }

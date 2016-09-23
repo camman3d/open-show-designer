@@ -85,6 +85,11 @@ export default class Editor extends Component {
         addActionListener('selectShow', index => {
             this.setState({activeShow: index});
         });
+        addActionListener('removeShow', index => {
+            let shows = this.state.shows.slice();
+            shows.splice(index, 1);
+            this.setState({shows});
+        });
 
         window.startShow = name => {
             let show = this.state.shows.find(s => s.name === name);

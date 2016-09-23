@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { play, rewind, stop, save, addTrack } from '../services/actions';
+import { play, rewind, stop, save, addTrack, newShow } from '../services/actions';
 import { open } from '../services/save-load';
 
 export default class ShowControls extends Component {
@@ -20,7 +20,7 @@ export default class ShowControls extends Component {
     render() {
         return <div id="show-controls">
             <div id="show-selector-controls">
-
+                <button onClick={newShow}><i className="fa fa-plus" /></button>
             </div>
             <div id="show-track-controls">
                 <select ref="trackType">
