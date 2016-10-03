@@ -29,7 +29,7 @@ export default class Editor extends Component {
         addActionListener('duration', duration => updateShow({duration}));
         addActionListener('time', (time, prev) => {
             updateShow({time: Math.min(Math.max(0, time), getShow().duration)});
-            transmit(getShow().tracks, prev, time);
+            //transmit(getShow().tracks, prev, time);
         });
         addActionListener('play', () => {
             play(getShow().time, getShow().duration);

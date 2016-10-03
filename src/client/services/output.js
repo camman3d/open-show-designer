@@ -33,6 +33,18 @@ function getRgb(hex) {
     };
 }
 
+
+let dmxState = {};
+
+function outputDmx(output, channel, value) {
+    let prevValue = dmxState[output + ':' + channel];
+    if (prevValue !== value) {
+        dmxState[output + ':' + channel] = value;
+        console.log('dmx');
+        dataTransmitter.sendDmx(output, channel, value);
+    }
+}
+
 export function transmit(tracks, prevTime, time) {
     tracks.forEach(track => {
         if (!track.enabled) {
@@ -44,6 +56,7 @@ export function transmit(tracks, prevTime, time) {
                     break;
                 }
                 if (point.time > prevTime && point.time <= time) {
+                    console.log('osc');
                     dataTransmitter.sendOsc(track.output, point.path);
                 }
             }
@@ -59,12 +72,12 @@ export function transmit(tracks, prevTime, time) {
                     // Interpolate the value based on the time
                     let p = (time - p1.time) / (p2.time - p1.time);
                     let val = Math.round((1 - p) * p1.value + p * p2.value);
-                    dataTransmitter.sendDmx(track.output, track.channel, val);
+                    outputDmx(track.output, track.channel, val);
                 }
             }
             let last = track.points[track.points.length - 1];
             if (last && time > last.time) {
-                dataTransmitter.sendDmx(track.output, track.channel, last.value);
+                outputDmx(track.output, track.channel, last.value);
             }
         }
         if (track.type === 'color') {
@@ -82,17 +95,17 @@ export function transmit(tracks, prevTime, time) {
                     let r = Math.round((1 - p) * value1.r + p * value2.r);
                     let g = Math.round((1 - p) * value1.g + p * value2.g);
                     let b = Math.round((1 - p) * value1.b + p * value2.b);
-                    dataTransmitter.sendDmx(track.output, track.channel, r);
-                    dataTransmitter.sendDmx(track.output, track.channel + 1, g);
-                    dataTransmitter.sendDmx(track.output, track.channel + 2, b);
+                    outputDmx(track.output, track.channel, r);
+                    outputDmx(track.output, track.channel + 1, g);
+                    outputDmx(track.output, track.channel + 2, b);
                 }
             }
             let last = track.points[track.points.length - 1];
             if (last && time > last.time) {
                 let {r,g,b} = getRgb(last.color);
-                dataTransmitter.sendDmx(track.output, track.channel, r);
-                dataTransmitter.sendDmx(track.output, track.channel + 1, g);
-                dataTransmitter.sendDmx(track.output, track.channel + 2, b);
+                outputDmx(track.output, track.channel, r);
+                outputDmx(track.output, track.channel + 1, g);
+                outputDmx(track.output, track.channel + 2, b);
             }
         }
     })
